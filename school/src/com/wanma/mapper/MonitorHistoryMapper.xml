@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+<mapper namespace="com.wanma.dao.MonitorHistoryMapper">
+	
+	<insert id="addMonitorHistory" parameterType="MonitorHistory" >
+		insert into monitor_history
+		(
+			longitude,
+			latitude,
+			pk_monitor,
+			updateTime,
+			readers
+		)
+		values
+		(
+		
+			#{longitude},
+			#{latitude},
+			#{monitorId},
+			#{updateTime},
+			#{readers}
+		)
+	</insert>
+	<select id="getHistoryMonitor" parameterType="MonitorHistory" resultType="MonitorHistory">
+	SELECT
+	m.longitude,m.latitude,m.pk_monitor,s.name,s.grade
+	FROM
+	monitor_history m,
+	(SELECT * from student where id = #{studentId})s
+	WHERE
+	m.pk_monitor = s.monitor_code
+	order by updateTime DESC
+	</select>
+	<select id="getMonitorHistoryById" parameterType="MonitorHistory" resultType="MonitorHistory">
+	SELECT 
+	pk_monitor monitorId,
+	longitude,
+	latitude
+	 from
+	monitor_history
+	WHERE
+	pk_monitor=#{monitorId}
+	order by updateTime DESC
+	limit 10
+	
+	</select>
+</mapper>

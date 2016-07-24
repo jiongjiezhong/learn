@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+<mapper namespace="com.wanma.dao.SchoolMonitorMapper">
+	
+	<select id="getStudentForMap" parameterType="map" resultType="Student">
+		select s.id studentId,s.name studentName,
+			   s.sex studentSex,s.age studentAge,
+			   s.grade studentGrade ,s.monitorId monitorId,
+			   s.teacher_id teacherId,s.parent_name parentName,
+			   s.parent_phone parentPhone,
+			   m.longitude,m.latitude 
+		from student s,monitor m
+		where s.id = m.bind_id
+			and m.status=1
+		order by s.id
+	</select>
+	
+</mapper>

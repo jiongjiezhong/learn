@@ -1,0 +1,37 @@
+#tableList {
+	background: #000;
+	width: 233px;
+	top: 0;
+	right: 0;
+	position: absolute;
+	z-index: 1000;
+	opacity: 0.5;
+	padding: 6px;
+	height: 190px;
+}
+
+#mainList {
+	z-index: 5000;
+	position: absolute;
+	right: 6px;
+	top: 8px;
+	height: 790px;
+	width: 233px;
+}
+
+#serach {
+	width: 180px;
+	height: 20px;
+	position: absolute;
+	z-index: 5000;
+	background: #fff;
+}
+
+#list {
+	margin-top: 5px;
+	width: 230px;
+	position: absolute;
+	height: 630px;
+	background: #fff;
+	z-index: 5000;
+}

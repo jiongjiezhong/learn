@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+<mapper namespace="com.wanma.dao.StudentInfoMapper">
+	<select id="selectStudent" parameterType="Student" resultType="Student">
+		select
+			id  studentId,
+			name studentName,
+			sex studentSex,
+			age studentAge,
+			grade studentGrade,
+			monitor_code monitorCode,
+			teacher_id teacherId,
+			(select name from teacher where id = teacher_id) teacherName,
+			parentName ,
+			parentPhone
+		 from student 
+		 <where>
+		  <if test="studentName!=null">name like concat('%',#{studentName},'%')</if>
+		 </where>	
+		order by id
+	</select>
+	<select id="getStudentCount"  resultType="long">
+		select count(1)
+		 from student 
+		order by id
+	</select>
+	<insert id="addStudent" parameterType="map" >
+		insert into student
+		(
+			name,
+			sex,
+			age,
+			grade,
+			monitor_code,
+			teacher_id,
+			parentName,
+			parentPhone
+		)
+		values
+		(
+			#{studentName},
+			#{studentSex},
+			#{studentAge},
+			#{studentGrade},
+			#{monitorCode},
+			#{teacherId},
+			#{parentName},
+			#{parentPhone}
+		)
+	</insert>
+	<update id="updateStudent" parameterType="Student">
+		update student set
+		name = #{studentName},
+		sex = #{studentSex},
+		age = #{studentAge},
+		grade = #{studentGrade},
+		monitor_code = #{monitorCode},
+		teacher_id = #{teacherId},
+		parentName = #{parentName},
+		parentPhone = #{parentPhone}
+		where id = #{studentId}
+	</update>
+	<delete id="deleteStudent" parameterType="map">
+		DELETE  from student 
+		where id=#{studentId}
+	</delete>
+	<select id="findStudentById" parameterType="int" resultType="Student">
+		select
+			id  studentId,
+			name studentName,
+			sex studentSex,
+			age studentAge,
+			grade studentGrade,
+			monitor_code monitorCode,
+			teacher_id teacherId,
+			parentName ,
+			parentPhone
+		 from student
+		where id = #{studentId}
+		 	  
+	
+	</select>
+</mapper>

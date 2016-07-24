@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+<mapper namespace="com.wanma.dao.ParentInfoMapper">
+	<select id="selectParent" parameterType="map" resultType="Parent">
+		select * from parent 
+		order by id
+	</select>
+	<insert id="addParent" parameterType="Parent" >
+		insert into parent
+		(
+			name,
+			sex,
+			age,
+			phone,
+			student_id
+		)
+		values
+		(
+			#{parentName},
+			#{parentSex},
+			#{parentAge},
+			#{parentPhone},
+			#{studentId}
+		)
+	</insert>
+	<update id="updateParent" parameterType="parent">
+		update student set
+		name = #{studentName},
+		sex = #{studentSex},
+		age = #{studentAge},
+		phone = #{parentPhone},
+		student_id = #{studentId}
+		
+		where id = #{parentId}
+	</update>
+	<delete id="deleteParent" parameterType="map">
+		DELETE  from parent
+		where id=#{parentId}
+	</delete>
+</mapper>

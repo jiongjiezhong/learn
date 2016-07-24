@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+<mapper namespace="com.wanma.dao.ReaderInfoMapper">
+	<select id="selectReader" parameterType="Reader" resultType="Reader">
+		select
+			id  readerId,
+			name readerName,
+			longitude longitude,
+			latitude latitude,
+			creatTime creatTime
+		 from reader 
+		 <where>
+		  <if test="readerName!=null">name like concat('%',#{readerName},'%')</if>
+		 </where>	
+		order by id
+	</select>
+	<select id="getReaderCount"  resultType="long">
+		select count(1)
+		 from reader 
+		order by id
+	</select>
+	<insert id="addReader" parameterType="map" >
+		insert into reader
+		(
+		name,
+		longitude,
+		latitude,
+		creatTime
+		)
+		values
+		(
+			#{readerName},
+			#{longitude},
+			#{latitude},
+			#{creatTime}
+		)
+	</insert>
+	<update id="updateReader" parameterType="Reader">
+		update reader set
+		name = #{readerName},
+		longitude = #{longitude},
+		latitude = #{latitude}
+		where id = #{readerId}
+	</update>
+	<delete id="deleteReader" parameterType="map">
+		DELETE  from reader 
+		where id=#{readerId}
+	</delete>
+	<select id="findReaderById" parameterType="int" resultType="Reader">
+		select
+			id  readerId,
+			name readerName,
+			longitude longitude,
+			latitude latitude
+		 from reader
+		where id = #{readerId}
+		 	  
+	
+	</select>
+</mapper>

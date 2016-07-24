@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+<mapper namespace="com.wanma.dao.MonitorInfoMapper">
+	<select id="selectMonitor" parameterType="map" resultType="Monitor">
+		select 
+			id monitorId,
+			status status,
+			mo_code mCode,
+			longitude longitude,
+			latitude latitude,
+			(SELECT name from student where monitor_code = mo_code) studentName,
+			(SELECT name from teacher where monitor_code = mo_code) teacherName
+		FROM monitor
+		order by id
+	</select>
+	<select id="selectBindMonitor"  resultType="Monitor">
+		select 
+			id monitorId,
+			longitude longitude,
+			latitude latitude,
+			mo_code mCode,
+			status status,
+			(SELECT name from student where monitor_code = mo_code) studentName,
+			(SELECT name from teacher where monitor_code = mo_code) teacherName
+		FROM monitor
+		where status = 1
+		order by id
+	</select>
+	<select id="selectUnbindMonitor"  resultType="Monitor">
+		select 
+			id monitorId,
+			mo_code mCode
+		FROM monitor
+		where status = 0
+		order by id
+	</select>
+	<select id="findMonitorById"  parameterType="int" resultType="Monitor">
+		select 
+			status
+		FROM monitor
+		where id = ${monitorId}
+	</select>
+	<insert id="addMonitor" parameterType="Monitor" >
+		insert into monitor
+		(
+
+
+			status,
+			mo_code
+		)
+		values
+		(
+
+			0,
+			#{mCode}
+		)
+	</insert>
+	<update id="updateMonitor" parameterType="Monitor">
+		update monitor set
+		<if  test="mCode!=null">
+		 mo_code = #{mCode},
+		</if>
+		longitude = #{longitude},
+		latitude = #{latitude},
+		status = #{status}
+		where id = #{monitorId}
+	</update>
+	<update id="updateMonitorStatus" parameterType="Monitor">
+		update monitor set
+		status = 1
+		where mo_code = #{mCode}
+	</update>
+	<delete id="deleteMonitor" parameterType="map">
+		DELETE  from monitor 
+		where id=#{monitorId}
+	</delete>
+	<select id="getMonitorCount"  resultType="long">
+		select count(1)
+		 from monitor 
+		order by id
+	</select>
+</mapper>

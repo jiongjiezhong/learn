@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+<mapper namespace="com.wanma.dao.TeacherInfoMapper">
+	<select id="selectTeacher"  resultType="Teacher">
+		select 
+			id teacherId,
+			name teacherName,
+			sex teacherSex,
+			age teacherAge,
+			grade teacherGrade,
+			phone teacherPhone,
+			monitor_code monitorCode
+		 from teacher 
+		  <where>
+		  <if test="teacherName!=null">name like concat('%',#{teacherName},'%')</if>
+		 </where>	
+		order by id
+	</select>
+	<select id="getTeacherCount"  resultType="long">
+		select count(1)
+		 from student 
+		order by id
+	</select>
+	<insert id="addTeacher" parameterType="Teacher" >
+		insert into teacher
+		(
+			name,
+			sex,
+			age,
+			grade,
+			monitor_code,
+			phone
+		)
+		values
+		(
+			#{teacherName},
+			#{teacherSex},
+			#{teacherAge},
+			#{teacherGrade},
+			#{monitorCode},
+			#{teacherPhone}
+		)
+	</insert>
+	<update id="updateTeacher" parameterType="Teacher">
+		update teacher set
+		name = #{teacherName},
+		sex = #{teacherSex},
+		age = #{teacherAge},
+		grade = #{teacherGrade},
+		monitor_code = #{monitorCode},
+		phone = #{teacherPhone}
+		where id = #{teacherId}
+	</update>
+	<delete id="deleteTeacher" parameterType="Teacher">
+		DELETE  from teacher 
+		where id=#{teacherId}
+	</delete>
+	<select id="findTeacherById" parameterType="int" resultType="Teacher">
+		select
+			id  teacherId,
+			name teacherName,
+			sex teacherSex,
+			age teacherAge,
+			grade teacherGrade,
+			monitor_code monitorCode,
+			phone teacherPhone
+		 from teacher
+		where id = #{teacherId}
+		 	  
+	
+	</select>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+					"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanma.dao.TblBookMapper">
+	<resultMap type="TblBook" id="result_book">
+		<result property="pkBook" column="pk_book" />
+		<result property="bookName" column="book_name" />
+		<result property="bookPrice" column="book_price" />
+	</resultMap>
+	<select id="findPage" parameterType="TblBook" resultMap="result_book">
+		select u.pk_book,u.book_name,u.book_price
+		from tbl_book u
+		where 1=1
+		<if test="bookName !=null and bookName !=''">and book_name like concat('%',#{bookName},'%')</if>
+	</select>
+	
+	<select id="findPageCount" parameterType="TblBook"
+		resultType="long">
+		select
+		count(1) 
+		from tbl_book a
+		where 1=1
+		<if test="bookName !=null and bookName !=''">and book_name like concat('%',#{bookName},'%')</if>
+	</select>
+	
+	<!-- 新增书本 -->
+	<insert id="save" parameterType="TblBook" useGeneratedKeys="true" keyProperty="pkBook">
+		insert into tbl_book
+		(
+			pk_book,
+			book_name,
+			book_price
+		)
+		values
+		(
+			#{pkBook},
+			#{bookName},
+			#{bookPrice}
+		)
+	</insert>
+	
+	<!-- 获取书本 -->
+	<select id="findById" parameterType="long" resultMap="result_book">
+		SELECT a.pk_book,
+			   a.book_name,
+			   a.book_price
+			FROM
+				tbl_book a
+			WHERE a.pk_book=#{pkBook}
+	</select>
+	
+	
+
+	<update id="update" parameterType="TblBook">
+		update tbl_book
+		<set>
+			<if test="bookName !=null and bookName !=''"> book_name=#{bookName}, </if>
+			<if test="bookPrice !=null "> book_price=#{bookPrice}, </if>
+			pk_book=#{pkBook}
+		</set>
+		<where>
+			pk_book=#{pkBook}
+		</where>
+	</update>
+	
+	<delete id="remove" parameterType="long">
+		delete  from tbl_book 
+		where pk_book=#{pkBook}
+	</delete>
+	
+</mapper>

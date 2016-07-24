@@ -1,0 +1,141 @@
+.tableListMy {
+	background:#000;
+	width: 16%;
+	top: 0;
+	right: 0;
+	position: absolute;
+	z-index: 1000;
+	opacity: 0.6;
+	padding: 1%;
+	height:96%;
+}
+
+.mainList {
+	z-index: 5000;
+	position: absolute;
+	right: 0.5%;
+	top: 1%;
+	height:67%;
+	width: 16.5%;
+	margin:0%;
+	display:block;
+
+}
+
+.serach {
+	width: 250px;
+	height: 36px;
+	border:0px; padding:0px 0px 0px 5px;
+	background: #fff;
+}
+
+.infoList {
+	margin-top: 3%;
+	width: 100%;
+	position: absolute;
+	background: #fff;
+	z-index: 5000;
+	overflow-y :auto;
+}
+
+.name {
+	margin-top: 8%;
+	font-weight: 900;
+}
+
+p {
+	margin: 14px 0 0 0;
+	padding: 0;
+	text-indent: 1em;
+	line-height: 150%;
+}
+
+.line {
+	width: 90%;
+	height: 1px;
+	background: #ccc;
+	margin-left: 5%;
+}
+
+.pileDetailList {
+	width: 228px;
+	height: 676px;
+	background: #fff;
+	z-index: 5000;
+}
+
+table tr .tdLeft {
+	text-align: center;
+	width: 60px;
+	height: 26px;
+}@charset "utf-8";
+
+/* 电桩管理你系统详情页使用样式 */
+
+html,body,div,ul,li,dl,dt,dd,p{ margin:0; padding:0; list-style:none;}
+body{ background-color:#fff; font-family:"微软雅黑";}
+a{ text-decoration:none;}
+.mar_center{ margin:0 auto; width:1000px;}
+
+
+/*============================各子页面==================================*/
+
+/*翻页*/
+.fanye{ width:15%; height:3%;margin-left:0;margin-top:1.3%;position:fixed;background: #fff;}
+.fanye_box{ float:left; margin-left:13%;margin-top:3%; padding:0;width:100%; height:100%; }
+.fanye_box li{ list-style:none; width:6%; height:25%; float:left; margin-right:3%;text-align:center;color:#5d5d5d;}
+.fanye_box li:hover{ color:#000; text-decoration:none;cursor:pointer}
+
+.fanye_box li.dangqian { color:#ff8800;}
+.fanye_box li.other {}
+
+.fanye_box li.qianfan,.fanye_box li.houfan{ font-size:6%; color:#fff; background:#898989;}
+.fanye_box li.qianfan:hover,.fanye_box li.houfan:hover{ font-size:6%; color:#fff; background:#5d5d5d;}
+.fanye_box li.qianfan a,.fanye_box li.houfan a{color:#fff; text-decoration:none;}
+
+/*----地图上的弹出----*/
+.list2{ width:488px; height:140px; background:#fff;}
+.list2 dl,.list2 dl dt,.list2 dl dd{ text-align:center;}
+.list2 dl{position:relative;}
+.list2 dl dt,.list2 dl dd{ padding:0px 10px;}
+.list2 dl dt{ padding-top:0px;}
+.list2 dl dt img,.list2 dl dt a img{ border:0;}
+/*-----------*/
+
+/*gongyong*/
+.borderB{ border-bottom:1px #ccc solid;}
+.w1000{ width:1000px; margin:0 auto;}
+.w800{ width:800px; text-align:left;}
+.Black{ color:#4e4e4e;}
+.Green{ color:#37a40c;}
+.Red{ color:#F00;}
+.Blue{ color:#0060ff;}
+.yellow{ color:#F90;}
+.ChannelContent{ width:1000px; margin:0 auto;}
+.mar_top10{ margin-top:10px;}
+.mar_top20{ margin-top:20px; *margin-top:50px;}
+.pad_bot50{ padding-bottom:50px;}
+.pad_top50{ padding-top:50px;}
+.pad_bot20{ padding-bottom:20px;}
+.pad_0{ padding:0;}
+.mar_0{ margin:0;}
+.floatL{ float:left;}
+.floatR{ float:right;}
+.H80{ width:auto; height:80px;}
+
+ul,ol,li{ margin:0; padding:0; border:0; list-style:none;}
+.scrollList { height:330px; overflow:hidden; width:100%;}
+.scrollList ol{ margin:0; padding:0;border:0; list-style:none;}
+
+
+#num{color:#999;}
+#mometer{position:relative;    height:100px;width:15px;background-color:#CCC;margin:50px;}
+#detailElectric{position:absolute;display:block;bottom:0px;width:40px;}
+#Hgheader{height:15px;line-height:15px;color:#FF0000;font-size:14px;font-family:Arial, Helvetica, sans-serif;
+border-bottom:#f00 1px solid;left:-40px;position:relative;}
+#Hg{height:0px;    font-size:0px;background-color:#C00;width:15px;}
+#hot{height:100px;width:15px; background-color:#FF0; position:absolute; top:0; left:0;}
+
+
+
+

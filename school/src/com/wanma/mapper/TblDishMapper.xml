@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+					"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanma.dao.TblDishMapper">
+	<resultMap type="TblDish" id="result_dish">
+		<result property="pkDish" column="pk_dish" />
+		<result property="dishName" column="dish_name" />
+		<result property="dishPrice" column="dish_price" />
+		<result property="dishLeibie" column="dish_leibie" />
+		<result property="dishSeason" column="dish_season" />
+	</resultMap>
+	<select id="findPage" parameterType="TblDish" resultMap="result_dish">
+		select u.pk_dish,u.dish_name,u.dish_price,u.dish_leibie,u.dish_season
+		from tbl_dish u
+		where 1=1
+		<if test="dishName !=null and dishName !=''">and dish_name like concat('%',#{dishName},'%')</if>
+		<if test="dishPrice !=null and dishPrice !=''">and dish_price like concat('%',#{dishPrice},'%')</if>
+		<if test="dishLeibie !=null and dishLeibie !=''">and dish_leibie like concat('%',#{dishLeibie},'%')</if>
+		<if test="dishSeason !=null and dishSeason !=''">and dish_season like concat('%',#{dishSeason},'%')</if>
+		<if test="pager!=null">limit #{pager.offset},#{pager.numPerPage}</if>
+	</select>
+
+	<select id="findPageCount" parameterType="TblDish" resultType="long">
+		select
+		count(1)
+		from tbl_dish a
+		where 1=1
+		<if test="dishName !=null and dishName !=''">and a.dish_name like concat('%',#{dishName},'%')</if>
+	</select>
+
+	<!-- 新增书本 -->
+	<insert id="save" parameterType="TblDish" useGeneratedKeys="true"
+		keyProperty="pkDish">
+		insert into tbl_dish
+		(
+		pk_dish,
+		dish_name,
+		dish_price,
+		dish_leibie,
+		dish_season
+		)
+		values
+		(
+		#{pkDish},
+		#{dishName},
+		#{dishPrice},
+		#{dishLeibie},
+		#{dishSeason}
+		)
+	</insert>
+
+	<!-- 获取菜单 -->
+	<select id="findById" parameterType="long" resultMap="result_dish">
+		SELECT
+		a.pk_dish,
+		a.dish_name,
+		a.dish_price,
+		a.dish_leibie,
+		a.dish_season
+		FROM
+		tbl_dish a
+		WHERE a.pk_dish=#{pkDish}
+	</select>
+
+
+
+	<update id="update" parameterType="TblDish">
+		update tbl_dish
+		<set>
+			<if test="dishName !=null and dishName !=''"> dish_name=#{dishName}, </if>
+			<if test="dishPrice !=null "> dish_price=#{dishPrice}, </if>
+			<if test="dishLeibie !=null and dishLeibie !='' "> dish_leibie=#{dishLeibie}, </if>
+			<if test="dishSeason !=null and dishSeason !='' "> dish_season=#{dishSeason}, </if>
+			pk_dish=#{pkDish} 
+		</set>
+		<where>
+			pk_dish=#{pkDish}
+		</where>
+	</update>
+
+	<delete id="remove" parameterType="long">
+		delete from tbl_dish
+		where
+		pk_dish=#{pkDish}
+	</delete>
+
+</mapper>

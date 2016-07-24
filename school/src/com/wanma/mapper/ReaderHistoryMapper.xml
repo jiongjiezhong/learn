@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+<mapper namespace="com.wanma.dao.ReaderHistoryMapper">
+	
+	<insert id="addReaderHistory" parameterType="ReaderHistory" >
+		insert into reader_history
+		(
+			pk_monitor,
+			pk_reader,
+			distance,
+			updateTime
+		)
+		values
+		(
+			#{monitorId},
+			#{readerId},
+			#{distance},
+			#{updateTime}
+		)
+	</insert>
+	
+	<select id="selectReaderHistorys" parameterType="ReaderHistory"  resultType="ReaderHistory">
+		select t.id rhId,
+		t.pk_monitor monitorId,
+		t.distance,
+		t.pk_reader readerId,
+		r.longitude,r.latitude 
+		from reader_history t,reader r,monitor m 
+		where t.pk_monitor=m.id and t.pk_reader=r.id 
+		<![CDATA[ and updateTime >=#{updateTime}]]> 
+		order by mo_code
+	</select>
+
+</mapper>
